@@ -8,6 +8,7 @@
     "MinecraftServer_tickMixin",
   ],
   "client":[
+    "ClientPlayNetworkHandler_onChunkDataMixin",
     "Timer_updateTimerMixin"
   ],
   "injectors": {
