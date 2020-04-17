@@ -1,5 +1,6 @@
 package io.yooksi.trcm.mixin;
 
+import io.yooksi.trcm.Tick;
 import net.minecraft.profiler.DebugProfiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Util;
@@ -34,6 +35,8 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 	@Shadow abstract boolean isAheadOfTime();
 	@Shadow protected abstract void runScheduledTasks();
 
+	private float msptAccum = 0.0f;
+
 	public MinecraftServer_runMixin(String name) {
 		super(name);
 	}
@@ -42,8 +45,7 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 	@Redirect(method = "run", at = @At(value = "FIELD",
 			target = "Lnet/minecraft/server/MinecraftServer;serverRunning:Z")
 	)
-	private boolean cancelRunLoop(MinecraftServer server)
-	{
+	private boolean cancelRunLoop(MinecraftServer server) {
 		return false;
 	}
 	// Replace the while loop
@@ -51,30 +53,46 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 			target = "Lnet/minecraft/server/MinecraftServer;applyServerIconToResponse" +
 					"(Lnet/minecraft/network/ServerStatusResponse;)V")
 	)
-	private void modifiedRunLoop(CallbackInfo ci) {
+	private void modifiedRunLoop(CallbackInfo ci)
+	{
+		while(this.serverRunning)
+		{
+			long msThisTick, long_1;
+			float tickMspt = Tick.getMspt();
 
-		while(this.serverRunning) {
+			// Tickrate changed. Ensure that we use the correct value.
+			if (Math.abs(msptAccum - tickMspt) > 1.0f) {
+				msptAccum = tickMspt;
+			}
+			msThisTick = (long)msptAccum; // regular tick
+			msptAccum += tickMspt - msThisTick;
+			long_1 = Util.milliTime() - this.serverTime;
 
-			long i = Util.milliTime() - this.serverTime;
-			if (i > 2000L && this.serverTime - this.timeOfLastWarning >= 15000L) {
-				long j = i / 50L;
-				LOGGER.warn("Can't keep up! Is the server overloaded? Running {}ms or {} ticks behind", i, j);
-				this.serverTime += j * 50L;
+			float float_1 = 1000L+20* Tick.getMspt();
+			float float_2 = 10000L+100* tickMspt;
+
+			//smoothed out delay to include mcpt component. With 50L gives defaults.
+			if (long_1 > float_1 && this.serverTime - this.timeOfLastWarning >= float_2)
+			{
+				long long_2 = (long)(long_1 / tickMspt);
+
+				LOGGER.warn("Can't keep up! Is the server overloaded? " +
+						"Running {}ms or {} ticks behind", long_1, long_2);
+
+				this.serverTime += (long)(long_2 * tickMspt);
 				this.timeOfLastWarning = this.serverTime;
 			}
-
-			this.serverTime += 50L;
+			this.serverTime += msThisTick;
 			if (this.startProfiling) {
 				this.startProfiling = false;
 				this.profiler.getFixedProfiler().enable();
 			}
-
 			this.profiler.startTick();
 			this.profiler.startSection("tick");
 			this.tick(this::isAheadOfTime);
 			this.profiler.endStartSection("nextTickWait");
 			this.isRunningScheduledTasks = true;
-			this.runTasksUntil = Math.max(Util.milliTime() + 50L, this.serverTime);
+			this.runTasksUntil = Math.max(Util.milliTime() + msThisTick, this.serverTime);
 			this.runScheduledTasks();
 			this.profiler.endSection();
 			this.profiler.endTick();

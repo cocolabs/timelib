@@ -21,7 +21,7 @@ public class Main {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		LOGGER.info("Pre-initialization phase");
-		Tick.changeTickrate(10.0f);
+		Tick.changeRate(10.0f);
 	}
 
 	@SubscribeEvent
