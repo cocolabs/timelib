@@ -4,9 +4,11 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "trcm.refmap.json",
   "mixins": [
-    "MinecraftServer_runMixin"
+    "MinecraftServer_runMixin",
+    "MinecraftServer_tickMixin",
   ],
   "client":[
+    "Timer_updateTimerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
