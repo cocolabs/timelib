@@ -1,10 +1,11 @@
 package io.yooksi.trcm.mixin;
 
-import io.yooksi.trcm.Tick;
-import net.minecraft.util.Timer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
+import io.yooksi.trcm.Tick;
+import net.minecraft.util.Timer;
 
 @SuppressWarnings("unused")
 @Mixin(Timer.class)

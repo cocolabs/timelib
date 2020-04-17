@@ -1,6 +1,5 @@
 package io.yooksi.trcm;
 
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import net.minecraft.command.CommandSource;
