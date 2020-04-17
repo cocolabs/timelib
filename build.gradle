@@ -17,7 +17,7 @@ apply plugin: 'maven-publish'
 
 apply plugin: "com.diffplug.gradle.spotless"
 // Personal Spotless formatting rules
-apply from: "https://git.io/JfekU"
+//apply from: "https://git.io/JfekU"
 
 version = "project.${forgeVersion}-${modVersion}"
 group = "io.yooksi.${modId}"
@@ -67,6 +67,9 @@ dependencies {
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
     implementation 'com.github.LXGaming:MixinBootstrap:v1.0.2'
 }
+
+mixin {
+    add sourceSets.main, "mixins.trcm.refmap.json"
 }
 
 // Get properties into the manifest for reading by the runtime..
