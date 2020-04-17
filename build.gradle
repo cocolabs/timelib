@@ -30,6 +30,11 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility
 repositories {
     mavenCentral()
     maven { url 'https://repo.spongepowered.org/maven' }
+    maven {
+        name "lxgaming"
+        url "https://dl.bintray.com/lxgaming/maven"
+    }
+    maven { url 'https://jitpack.io' }
 }
 
 minecraft {
@@ -60,6 +65,8 @@ minecraft {
 dependencies {
     minecraft 'net.minecraftforge:forge:' + project.forgeVersion + '-' + project.forgeBuild
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
+    implementation 'com.github.LXGaming:MixinBootstrap:v1.0.2'
+}
 }
 
 // Get properties into the manifest for reading by the runtime..
