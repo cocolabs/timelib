@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "io.yooksi.trcm.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "trcm.refmap.json",
+  "mixins": [
+    "MinecraftServer_runMixin"
+  ],
+  "client":[
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
