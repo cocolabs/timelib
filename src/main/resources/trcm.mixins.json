@@ -8,7 +8,7 @@
     "MinecraftServer_tickMixin",
     "CommandsMixin"
   ],
-  "client":[
+  "client": [
     "ClientPlayNetworkHandler_onChunkDataMixin",
     "Timer_updateTimerMixin"
   ],

@@ -44,7 +44,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            arg "-mixin.config="+archivesBaseName+".mixins.json"
+            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -116,7 +116,7 @@ processResources {
         include 'META-INF/mods.toml'
 
         // Replace version
-        expand 'version':project.version
+        expand 'version': project.version
     }
     // Copy everything else except the mods.toml
     from(sourceSets.main.resources.srcDirs) {

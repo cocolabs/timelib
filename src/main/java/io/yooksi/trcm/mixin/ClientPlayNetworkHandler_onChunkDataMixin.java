@@ -36,13 +36,14 @@ public class ClientPlayNetworkHandler_onChunkDataMixin {
 	@SuppressWarnings("rawtypes")
 	private void recreateMovingPistons(SChunkDataPacket packet, CallbackInfo ci,
 									   int i, int j, Chunk chunk, Iterator var5,
-									   CompoundNBT tag, BlockPos blockPos)
-	{
+									   CompoundNBT tag, BlockPos blockPos) {
+
 		TileEntity tileEntity = world.getTileEntity(blockPos);
 		if (tileEntity == null && "minecraft:piston".equals(tag.getString("id")))
 		{
 			BlockState blockState = world.getBlockState(blockPos);
-			if (blockState.getBlock() == Blocks.MOVING_PISTON) {
+			if (blockState.getBlock() == Blocks.MOVING_PISTON)
+			{
 				tag.putFloat("progress", Math.min(tag.getFloat("progress") + 0.5F, 1.0F));
 				tileEntity = new PistonTileEntity();
 				tileEntity.read(tag);

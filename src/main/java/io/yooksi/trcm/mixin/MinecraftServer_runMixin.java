@@ -54,9 +54,9 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 			target = "Lnet/minecraft/server/MinecraftServer;applyServerIconToResponse" +
 					"(Lnet/minecraft/network/ServerStatusResponse;)V")
 	)
-	private void modifiedRunLoop(CallbackInfo ci)
-	{
-		while(this.serverRunning)
+	private void modifiedRunLoop(CallbackInfo ci) {
+
+		while (this.serverRunning)
 		{
 			long msThisTick, long_1;
 			float tickMspt = Tick.getMspt();
@@ -65,26 +65,27 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 			if (Math.abs(msptAccum - tickMspt) > 1.0f) {
 				msptAccum = tickMspt;
 			}
-			msThisTick = (long)msptAccum; // regular tick
+			msThisTick = (long) msptAccum; // regular tick
 			msptAccum += tickMspt - msThisTick;
 			long_1 = Util.milliTime() - this.serverTime;
 
-			float float_1 = 1000L+20* Tick.getMspt();
-			float float_2 = 10000L+100* tickMspt;
+			float float_1 = 1000L + 20 * Tick.getMspt();
+			float float_2 = 10000L + 100 * tickMspt;
 
 			//smoothed out delay to include mcpt component. With 50L gives defaults.
 			if (long_1 > float_1 && this.serverTime - this.timeOfLastWarning >= float_2)
 			{
-				long long_2 = (long)(long_1 / tickMspt);
+				long long_2 = (long) (long_1 / tickMspt);
 
 				LOGGER.warn("Can't keep up! Is the server overloaded? " +
 						"Running {}ms or {} ticks behind", long_1, long_2);
 
-				this.serverTime += (long)(long_2 * tickMspt);
+				this.serverTime += (long) (long_2 * tickMspt);
 				this.timeOfLastWarning = this.serverTime;
 			}
 			this.serverTime += msThisTick;
-			if (this.startProfiling) {
+			if (this.startProfiling)
+			{
 				this.startProfiling = false;
 				this.profiler.getFixedProfiler().enable();
 			}
