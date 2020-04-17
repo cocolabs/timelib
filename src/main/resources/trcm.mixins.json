@@ -6,6 +6,7 @@
   "mixins": [
     "MinecraftServer_runMixin",
     "MinecraftServer_tickMixin",
+    "CommandsMixin"
   ],
   "client":[
     "ClientPlayNetworkHandler_onChunkDataMixin",
