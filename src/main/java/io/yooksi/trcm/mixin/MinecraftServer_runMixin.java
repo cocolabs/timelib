@@ -32,7 +32,7 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 	@Shadow private boolean isRunningScheduledTasks;
 	@Shadow private long runTasksUntil;
 
-	@Shadow protected abstract void tick(BooleanSupplier booleanSupplier_1);
+	@Shadow protected abstract void func_71217_p(BooleanSupplier booleanSupplier_1);
 	@Shadow abstract boolean isAheadOfTime();
 	@Shadow protected abstract void runScheduledTasks();
 
@@ -44,14 +44,14 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 
 	// Cancel while(this.serverRunning)
 	@Redirect(method = "run", at = @At(value = "FIELD",
-			target = "Lnet/minecraft/server/MinecraftServer;serverRunning:Z")
+			target = "Lnet/minecraft/server/MinecraftServer;field_71317_u:Z")
 	)
 	private boolean cancelRunLoop(MinecraftServer server) {
 		return false;
 	}
 	// Replace the while loop
 	@Inject(method = "run", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
-			target = "Lnet/minecraft/server/MinecraftServer;applyServerIconToResponse" +
+			target = "Lnet/minecraft/server/MinecraftServer;func_184107_a" +
 					"(Lnet/minecraft/network/ServerStatusResponse;)V")
 	)
 	private void modifiedRunLoop(CallbackInfo ci) {
@@ -91,7 +91,7 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 			}
 			this.profiler.startTick();
 			this.profiler.startSection("tick");
-			this.tick(this::isAheadOfTime);
+			this.func_71217_p(this::isAheadOfTime);
 			this.profiler.endStartSection("nextTickWait");
 			this.isRunningScheduledTasks = true;
 			this.runTasksUntil = Math.max(Util.milliTime() + msThisTick, this.serverTime);

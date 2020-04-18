@@ -11,8 +11,8 @@ import net.minecraft.util.Timer;
 @Mixin(Timer.class)
 public class Timer_updateTimerMixin {
 
-	@Redirect(method = "updateTimer", at = @At(value = "FIELD",
-			target = "Lnet/minecraft/util/Timer;tickLength:F")
+	@Redirect(method = "func_74275_a", at = @At(value = "FIELD",
+			target = "Lnet/minecraft/util/Timer;field_194149_e:F")
 	)
 	private float updateTickSpeed(Timer timer) {
 		return Tick.process_entities ? Math.max(50.0f, Tick.getMspt()) : 50f;
