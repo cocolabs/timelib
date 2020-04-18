@@ -44,14 +44,14 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 
 	// Cancel while(this.serverRunning)
 	@Redirect(method = "run", at = @At(value = "FIELD",
-			target = "Lnet/minecraft/server/MinecraftServer;serverRunning:Z")
+			target = "Lnet/minecraft/server/MinecraftServer;field_71317_u:Z")
 	)
 	private boolean cancelRunLoop(MinecraftServer server) {
 		return false;
 	}
 	// Replace the while loop
 	@Inject(method = "run", at = @At(value = "INVOKE", shift = At.Shift.AFTER,
-			target = "Lnet/minecraft/server/MinecraftServer;applyServerIconToResponse" +
+			target = "Lnet/minecraft/server/MinecraftServer;func_184107_a" +
 					"(Lnet/minecraft/network/ServerStatusResponse;)V")
 	)
 	private void modifiedRunLoop(CallbackInfo ci) {

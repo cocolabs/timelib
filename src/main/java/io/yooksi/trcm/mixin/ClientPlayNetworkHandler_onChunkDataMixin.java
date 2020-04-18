@@ -26,10 +26,10 @@ public class ClientPlayNetworkHandler_onChunkDataMixin {
 
 	@Shadow private ClientWorld world;
 
-	@Inject(method = "handleChunkData",
+	@Inject(method = "func_147263_a",
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			require = 0, at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/client/world/ClientWorld;getTileEntity" +
+			target = "Lnet/minecraft/client/world/ClientWorld;func_175625_s" +
 					"(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/tileentity/TileEntity;",
 			shift = At.Shift.AFTER)
 	)

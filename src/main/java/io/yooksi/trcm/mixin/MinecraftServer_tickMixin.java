@@ -14,8 +14,8 @@ import net.minecraft.server.MinecraftServer;
 @SuppressWarnings("unused")
 public abstract class MinecraftServer_tickMixin {
 
-	@Inject(method = "tick", at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/server/MinecraftServer;updateTimeLightAndEntities" +
+	@Inject(method = "func_71217_p", at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/server/MinecraftServer;func_71190_q" +
 					"(Ljava/util/function/BooleanSupplier;)V",
 			shift = At.Shift.BEFORE, ordinal = 0)
 	)
