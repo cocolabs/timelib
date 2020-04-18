@@ -46,3 +46,8 @@ The steps above slow down server tick rate but unfortunately result in frame ski
   - `./gradlew genEclipseRuns` on Linux.
 - Run `gradlew build` to compile and obfuscate your mod as a `jar` in `build/libs/`.
 
+## Credits
+
+- [Unregkiller](https://github.com/Unregkiller) - for commissioning the creation of this mod.
+- [gnembon](https://github.com/gnembon) - for creating [Carpet](https://github.com/gnembon/fabric-carpet/blob/master/src/main/java/carpet/mixins/MinecraftServer_tickspeedMixin.java) on which this mod is based of.
+- [MDC](https://www.moddevcafe.com/) and [MMD](https://discordapp.com/invite/EDbExcX) communities - for helping resolve technical issues. 
