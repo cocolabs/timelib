@@ -2,19 +2,6 @@
 
 This is a Forge mod for Mincraft version 1.15 that lets you slow down time making everything in your environment move slower. This includes all game animations (including the player), but does not affect the camera.
 
-## How did you do this?
-
-The process used to accomplish this is complex and involves bytecode manipulation using [Mixin](https://github.com/SpongePowered/Mixin). The technical side of things can be difficult to understand if you are not familiar with [ASM](https://asm.ow2.io/), however this is the simple version of what happens inside the mod that allows us to slow down time:
-
-- During runtime Mixin will redirect method flow at a particular point in `MinecraftServer.run()` method and inject a callback to itself. The point of injection is the `while` loop that handles the server time calculation and determines when each tick should happen.
-- We then do a series of calculations and determine how much milliseconds passed this tick based on the `mspt` (milliseconds per tick) rate calculated from tick rate set by the player via game command.
-- From there it's only a matter of incrementing `serverTime` and setting when tasks will be completed (`runTasksUntil`) with the calculated value. The rest of the replaced loop is pure vanilla code.
-
-The steps above slow down server tick rate but unfortunately result in frame skipping when rendering. This is caused by the client timer not calculating elapsed ticks properly, and here is how we deal with that: 
-
-- During runtime Mixin will redirect field access of `tickLength` in `net.minecraft.util.Timer` class to return `mspt` (milliseconds per tick) calculated from tick rate set by player via game command.
-- Special care needs to be taken when dealing with pistons (see issue #3).
-
 ## Where do I download it?
 
 - Check the [releases](https://github.com/yooksi/trcm/releases) section in project repository page to get the latest release.
@@ -35,6 +22,19 @@ Tick rate is changed through the use of the following game commands:
 
 - `\t <rate>` - change tick rate to a desired value (min 0.1, max 20).
 - `\t` - reset tick rate to game default value (20).
+
+## Technical details
+
+The process used to accomplish this is complex and involves bytecode manipulation using [Mixin](https://github.com/SpongePowered/Mixin). The technical side of things can be difficult to understand if you are not familiar with [ASM](https://asm.ow2.io/), however this is the simple version of what happens inside the mod that allows us to slow down time:
+
+- During runtime Mixin will redirect method flow at a particular point in `MinecraftServer.run()` method and inject a callback to itself. The point of injection is the `while` loop that handles the server time calculation and determines when each tick should happen.
+- We then do a series of calculations and determine how much milliseconds passed this tick based on the `mspt` (milliseconds per tick) rate calculated from tick rate set by the player via game command.
+- From there it's only a matter of incrementing `serverTime` and setting when tasks will be completed (`runTasksUntil`) with the calculated value. The rest of the replaced loop is pure vanilla code.
+
+The steps above slow down server tick rate but unfortunately result in frame skipping when rendering. This is caused by the client timer not calculating elapsed ticks properly, and here is how we deal with that: 
+
+- During runtime Mixin will redirect field access of `tickLength` in `net.minecraft.util.Timer` class to return `mspt` (milliseconds per tick) calculated from tick rate set by player via game command.
+- Special care needs to be taken when dealing with pistons (see issue #3).
 
 ## For developers
 
