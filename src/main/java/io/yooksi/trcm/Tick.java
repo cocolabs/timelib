@@ -19,6 +19,10 @@ public class Tick {
 		return Tick.rate;
 	}
 
+	public static float resetRate() {
+		return changeRate(DEFAULT_RATE);
+	}
+
 	public static float getRate() {
 		return rate;
 	}
