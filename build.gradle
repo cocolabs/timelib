@@ -37,6 +37,10 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
+sourceSets {
+    main { ext.refMap = "main.refmap.json" }
+}
+
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   Snapshot are built nightly.
@@ -66,10 +70,6 @@ dependencies {
     minecraft 'net.minecraftforge:forge:' + project.forgeVersion + '-' + project.forgeBuild
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
     implementation 'com.github.LXGaming:MixinBootstrap:v1.0.2'
-}
-
-mixin {
-    add sourceSets.main, "mixins.trcm.refmap.json"
 }
 
 // Get properties into the manifest for reading by the runtime..

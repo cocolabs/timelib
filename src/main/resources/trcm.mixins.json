@@ -2,7 +2,7 @@
   "required": true,
   "package": "io.yooksi.trcm.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "mixins.trcm.refmap.json",
+  "refmap": "main.refmap.json",
   "mixins": [
     "MinecraftServer_runMixin",
     "MinecraftServer_tickMixin",
