@@ -29,6 +29,13 @@ The steps above slow down server tick rate but unfortunately result in frame ski
 
 Due to the nature of how Forge works Mixin needs a bit of help to work in production environment with Forge. MixinBootstrap does just that, it's only function is to enable Mixin to work with Forge, that's it. If you are interested in learning more about Mixin environment read [Introduction to Mixins: The Mixin Environment](https://github.com/SpongePowered/Mixin/wiki/Introduction-to-Mixins---The-Mixin-Environment).
 
+## How do I use it?
+
+Tick rate is changed through the use of the following game commands:
+
+- `\t <rate>` - change tick rate to a desired value (min 0.1, max 20).
+- `\t` - reset tick rate to game default value (20).
+
 ## For developers
 
 - Clone the repository with Git to your local disk.
