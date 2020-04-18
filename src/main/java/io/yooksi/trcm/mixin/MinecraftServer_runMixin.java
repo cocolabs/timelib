@@ -33,7 +33,7 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 	@Shadow private long runTasksUntil;
 
 	@Shadow protected abstract void func_71217_p(BooleanSupplier booleanSupplier_1);
-	@Shadow abstract boolean isAheadOfTime();
+	@Shadow abstract boolean func_212379_aT();
 	@Shadow protected abstract void runScheduledTasks();
 
 	private float msptAccum = 0.0f;
@@ -91,7 +91,7 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 			}
 			this.profiler.startTick();
 			this.profiler.startSection("tick");
-			this.func_71217_p(this::isAheadOfTime);
+			this.func_71217_p(this::func_212379_aT);
 			this.profiler.endStartSection("nextTickWait");
 			this.isRunningScheduledTasks = true;
 			this.runTasksUntil = Math.max(Util.milliTime() + msThisTick, this.serverTime);
