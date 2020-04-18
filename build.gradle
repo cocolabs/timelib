@@ -19,7 +19,7 @@ apply plugin: "com.diffplug.gradle.spotless"
 // Personal Spotless formatting rules
 //apply from: "https://git.io/JfekU"
 
-version = "project.${forgeVersion}-${modVersion}"
+version = "${forgeVersion}-${modVersion}"
 group = "io.yooksi.${modId}"
 archivesBaseName = project.modId
 
