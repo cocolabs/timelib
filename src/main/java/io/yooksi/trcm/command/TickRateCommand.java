@@ -10,9 +10,9 @@ import net.minecraft.util.text.StringTextComponent;
 
 public class TickRateCommand {
 
-	private static final String FEEDBACK_CHANGED = "Game tick rate changed from %.1f to %.1f";
-	private static final String FEEDBACK_NOT_CHANGED = "Game tick rate is already %.1f";
-	private static final String FEEDBACK_RESET = "Game tick rate has been reset to %.1f";
+	private static final String FEEDBACK_CHANGED = "Game tick rate changed from %.2f to %.2f";
+	private static final String FEEDBACK_NOT_CHANGED = "Game tick rate is already %.2f";
+	private static final String FEEDBACK_RESET = "Game tick rate has been reset to %.2f";
 
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 
