@@ -17,7 +17,7 @@ public class TickRateCommand {
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 
 		dispatcher.register(Commands.literal("t").executes((c) -> setTickRate(c.getSource()))
-				.then(Commands.argument("rate", FloatArgumentType.floatArg(0.1f, 20.0f))
+				.then(Commands.argument("rate", FloatArgumentType.floatArg(0.01f, 20.0f))
 						.executes((c) -> setTickRate(c.getSource(), c.getArgument("rate", Float.class)))));
 	}
 	/** Change tick rate to new value */
