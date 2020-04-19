@@ -67,7 +67,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:' + project.forgeVersion + '-' + project.forgeBuild
+    minecraft "net.minecraftforge:forge:${project.forgeVersion}-${project.forgeBuild}"
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
     implementation "com.github.LXGaming:MixinBootstrap:v${mixinBootstrapVer}"
 }
