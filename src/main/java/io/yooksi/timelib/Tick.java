@@ -1,4 +1,4 @@
-package io.yooksi.trcm;
+package io.yooksi.timelib;
 
 public class Tick {
 

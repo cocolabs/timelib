@@ -1,4 +1,4 @@
-package io.yooksi.trcm;
+package io.yooksi.timelib;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

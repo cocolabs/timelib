@@ -1,4 +1,4 @@
-package io.yooksi.trcm.mixin;
+package io.yooksi.timelib.mixin;
 
 import java.util.function.BooleanSupplier;
 
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.yooksi.trcm.Tick;
+import io.yooksi.timelib.Tick;
 import net.minecraft.profiler.DebugProfiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Util;

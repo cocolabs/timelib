@@ -1,4 +1,4 @@
-package io.yooksi.trcm.mixin;
+package io.yooksi.timelib.mixin;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.brigadier.CommandDispatcher;
 
-import io.yooksi.trcm.command.TickRateCommand;
+import io.yooksi.timelib.command.TickRateCommand;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 
