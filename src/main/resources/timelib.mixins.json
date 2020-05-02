@@ -5,7 +5,6 @@
   "refmap": "main.refmap.json",
   "mixins": [
     "MinecraftServer_runMixin",
-    "MinecraftServer_tickMixin",
     "CommandsMixin"
   ],
   "client": [
