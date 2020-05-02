@@ -17,14 +17,18 @@ public class TickRateCommand {
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 
 		dispatcher.register(Commands.literal("tickrate").then(Commands.literal("set")
-				.then(Commands.argument("value", FloatArgumentType.floatArg(0.1f, TickRate.MAXIMUM))
-				.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
+				.then(Commands.argument("value",
+						FloatArgumentType.floatArg(0.1f, TickRate.MAXIMUM))
+						.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
 				.then(Commands.literal("slow").executes((c) -> setTickRate(c, TickRate.SLOW)))
 				.then(Commands.literal("normal").executes((c) -> setTickRate(c, TickRate.DEFAULT)))
-				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickRate.FAST)))
-				.then(Commands.literal("reset").executes((c) -> setTickRate(c, TickRate.DEFAULT)))));
+				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickRate.FAST))))
+				.then(Commands.literal("reset").executes(TickRateCommand::setTickRate)));
 	}
-	/** Change tick rate to new value */
+
+	/**
+	 * Change tick rate to new value
+	 */
 	private static int setTickRate(CommandContext<CommandSource> context, float newRate) {
 
 		CommandSource source = context.getSource();
@@ -39,13 +43,14 @@ public class TickRateCommand {
 			return (int) currentRate;
 		}
 	}
-	/** Reset tick rate to a default value */
+
+	/**
+	 * Reset tick rate to default value
+	 */
 	private static int setTickRate(CommandContext<CommandSource> context) {
 
 		final float defaultRate = TickRate.reset();
 		CmdHelper.sendFeedback(context.getSource(), String.format(FEEDBACK_RESET, defaultRate));
 		return (int) defaultRate;
-
 	}
-
 }
