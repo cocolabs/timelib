@@ -14,6 +14,8 @@ modId="timelib"
 version="${version}"
  # A display name for the mod
 displayName="TimeLib"
+# A URL for the "homepage" for this mod, displayed in the mod UI
+displayURL="https://github.com/yooksi/TimeLib"
 # A text field displayed in the mod UI
 credits="Unregkiller, gnembon, MDC and MMD communities"
 # A text field displayed in the mod UI
