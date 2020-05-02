@@ -29,8 +29,8 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
-sourceSets {
-    main { ext.refMap = "main.refmap.json" }
+mixin {
+    add sourceSets.main, "mixins.${modId}.refmap.json"
 }
 
 minecraft {
