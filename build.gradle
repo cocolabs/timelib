@@ -13,6 +13,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 apply plugin: "com.diffplug.gradle.spotless"
