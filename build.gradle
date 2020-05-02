@@ -18,9 +18,8 @@ apply plugin: 'maven-publish'
 apply plugin: "com.diffplug.gradle.spotless"
 // Personal Spotless formatting rules
 //apply from: "https://git.io/JfekU"
-
-version = "${forgeVersion}-${modVersion}"
-group = "io.yooksi.${modId}"
+version = "${minecraftVersion}-${modVersion}"
+group = "io.${groupName}.${modId}"
 archivesBaseName = project.modId
 
 // Need this here so eclipse task generates correctly.
@@ -47,7 +46,7 @@ minecraft {
     // stable_#            Stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: project.mappingVersion
+    mappings channel: 'snapshot', version: "${mappingBuild}-${mappingMCVersion}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     runs {
@@ -67,7 +66,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${project.forgeVersion}-${project.forgeBuild}"
+    minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
     implementation "com.github.LXGaming:MixinBootstrap:v${mixinBootstrapVer}"
 }
@@ -76,14 +75,13 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": project.modId,
-            "Specification-Vendor": "${modId}vendor",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor": "${modId}vendor",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-            "MixinConfigs": "${modId}.mixins.json"
+                "Specification-Title": project.modId,
+                "Specification-Vendor": "${groupName}",
+                "Specification-Version": "1", // We are version 1 of ourselves
+                "Implementation-Title": project.name,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor": "${groupName}",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
         ])
     }
 }
