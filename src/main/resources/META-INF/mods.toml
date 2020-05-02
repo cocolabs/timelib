@@ -9,7 +9,7 @@ loaderVersion="[31,)"
 # A URL to refer people to when problems occur with this mod
 issueTrackerURL="https://github.com/yooksi/trcm/issues"
 # The modid of the mod
-modId="trcm"
+modId="timelib"
 # The version number of the mod
 version="${version}"
  # A display name for the mod
