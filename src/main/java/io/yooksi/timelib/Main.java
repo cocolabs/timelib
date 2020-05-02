@@ -1,4 +1,4 @@
-package io.yooksi.trcm;
+package io.yooksi.timelib;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,9 +10,10 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @SuppressWarnings("unused")
-@Mod("trcm")
+@Mod(Main.MODID)
 public class Main {
 
+	public static final String MODID = "timelib";
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	public Main() {

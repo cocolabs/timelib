@@ -7,17 +7,19 @@ loaderVersion="[31,)"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # A URL to refer people to when problems occur with this mod
-issueTrackerURL="https://github.com/yooksi/trcm/issues"
+issueTrackerURL="https://github.com/yooksi/TimeLib/issues"
 # The modid of the mod
-modId="trcm"
+modId="timelib"
 # The version number of the mod
 version="${version}"
  # A display name for the mod
-displayName="Tickrate Changer"
+displayName="TimeLib"
+# A URL for the "homepage" for this mod, displayed in the mod UI
+displayURL="https://github.com/yooksi/TimeLib"
 # A text field displayed in the mod UI
 credits="Unregkiller, gnembon, MDC and MMD communities"
 # A text field displayed in the mod UI
 authors="yooksi"
 # A URL to query for updates for this mod. See the JSON update specification <here>
 # The description text for the mod (multi line!)
-description='''Minecraft mod that slows down game tick rate on command.'''
+description='''Minecraft mod library that holds the secrets of time.'''

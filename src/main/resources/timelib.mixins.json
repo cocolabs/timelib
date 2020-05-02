@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "io.yooksi.trcm.mixin",
+  "package": "io.yooksi.timelib.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "main.refmap.json",
   "mixins": [
