@@ -3,6 +3,7 @@ package io.yooksi.timelib.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 
+import com.mojang.brigadier.context.CommandContext;
 import io.yooksi.timelib.TickRate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -16,17 +17,23 @@ public class TickRateCommand {
 
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 
-		dispatcher.register(Commands.literal("t").executes((c) -> setTickRate(c.getSource()))
-				.then(Commands.argument("rate", FloatArgumentType.floatArg(0.1f, 20.0f))
-						.executes((c) -> setTickRate(c.getSource(), c.getArgument("rate", Float.class)))));
+		dispatcher.register(Commands.literal("tickrate").then(Commands.literal(
+				"set").then(Commands.argument("value", FloatArgumentType.floatArg(0.1f, 20.0f))
+				.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
+				.then(Commands.literal("slow").executes((c) -> setTickRate(c, TickRate.SLOW)))
+				.then(Commands.literal("normal").executes((c) -> setTickRate(c, TickRate.DEFAULT)))
+				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickRate.FAST)))
+				.then(Commands.literal("reset").executes((c) -> setTickRate(c, TickRate.DEFAULT)))));
 	}
 	/** Change tick rate to new value */
-	private static int setTickRate(CommandSource source, float newRate) {
+	private static int setTickRate(CommandContext<CommandSource> context, float newRate) {
 
-		final float currentRate = Tick.getRate();
+		CommandSource source = context.getSource();
+		final float currentRate = TickRate.get();
+
 		if (newRate != currentRate) {
 			sendFeedback(source, String.format(FEEDBACK_CHANGED, currentRate, newRate));
-			return (int) Tick.changeRate(newRate);
+			return (int) TickRate.set(newRate);
 		}
 		else {
 			sendFeedback(source, String.format(FEEDBACK_NOT_CHANGED, currentRate));
@@ -34,10 +41,10 @@ public class TickRateCommand {
 		}
 	}
 	/** Reset tick rate to a default value */
-	private static int setTickRate(CommandSource source) {
+	private static int setTickRate(CommandContext<CommandSource> context) {
 
-		final float defaultRate = Tick.resetRate();
-		sendFeedback(source, String.format(FEEDBACK_RESET, defaultRate));
+		final float defaultRate = TickRate.reset();
+		sendFeedback(context.getSource(), String.format(FEEDBACK_RESET, defaultRate));
 		return (int) defaultRate;
 
 	}
