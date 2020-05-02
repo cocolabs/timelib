@@ -13,7 +13,7 @@ modId="timelib"
 # The version number of the mod
 version="${version}"
  # A display name for the mod
-displayName="Tickrate Changer"
+displayName="TimeLib"
 # A text field displayed in the mod UI
 credits="Unregkiller, gnembon, MDC and MMD communities"
 # A text field displayed in the mod UI
