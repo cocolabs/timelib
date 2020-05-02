@@ -7,7 +7,6 @@ import com.mojang.brigadier.context.CommandContext;
 import io.yooksi.timelib.TickRate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.util.text.StringTextComponent;
 
 public class TickRateCommand {
 
@@ -32,11 +31,11 @@ public class TickRateCommand {
 		final float currentRate = TickRate.get();
 
 		if (newRate != currentRate) {
-			sendFeedback(source, String.format(FEEDBACK_CHANGED, currentRate, newRate));
+			CmdHelper.sendFeedback(source, String.format(FEEDBACK_CHANGED, currentRate, newRate));
 			return (int) TickRate.set(newRate);
 		}
 		else {
-			sendFeedback(source, String.format(FEEDBACK_NOT_CHANGED, currentRate));
+			CmdHelper.sendFeedback(source, String.format(FEEDBACK_NOT_CHANGED, currentRate));
 			return (int) currentRate;
 		}
 	}
@@ -44,12 +43,9 @@ public class TickRateCommand {
 	private static int setTickRate(CommandContext<CommandSource> context) {
 
 		final float defaultRate = TickRate.reset();
-		sendFeedback(context.getSource(), String.format(FEEDBACK_RESET, defaultRate));
+		CmdHelper.sendFeedback(context.getSource(), String.format(FEEDBACK_RESET, defaultRate));
 		return (int) defaultRate;
 
 	}
-	/** Send chat message to player */
-	private static void sendFeedback(CommandSource source, String message) {
-		source.sendFeedback(new StringTextComponent(message), true);
-	}
+
 }
