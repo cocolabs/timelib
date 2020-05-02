@@ -2,6 +2,9 @@ package io.yooksi.timelib;
 
 public class TickRate {
 
+	public static final float SLOW = 10.0f;
+	public static final float DEFAULT = 20.0f;
+	public static final float FAST = 30.0f;
 
 	private static float rate = DEFAULT;
 	private static float mspt = (float)(1000.0 / rate);
