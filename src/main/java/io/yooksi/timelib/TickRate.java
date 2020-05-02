@@ -4,7 +4,6 @@ public class TickRate {
 
 	public static final float DEFAULT_RATE = 20.0f;
 
-	public static boolean process_entities = true;
 	private static float rate = DEFAULT_RATE;
 	private static float mspt = (float)(1000.0 / rate);
 

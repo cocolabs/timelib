@@ -15,6 +15,6 @@ public class Timer_updateTimerMixin {
 			target = "Lnet/minecraft/util/Timer;tickLength:F")
 	)
 	private float updateTickSpeed(Timer timer) {
-		return Tick.process_entities ? Math.max(50.0f, Tick.getMspt()) : 50f;
+		return Math.max(50.0f, TickRate.getMspt());
 	}
 }
