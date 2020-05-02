@@ -1,6 +1,6 @@
 package io.yooksi.timelib;
 
-public class Tick {
+public class TickRate {
 
 	public static final float DEFAULT_RATE = 20.0f;
 
@@ -10,13 +10,13 @@ public class Tick {
 
 	public static float changeRate(float rate) {
 
-		Tick.rate = rate;
-		long mspt = (long) (1000.0 / Tick.rate);
+		TickRate.rate = rate;
+		long mspt = (long) (1000.0 / TickRate.rate);
 		if (mspt <= 0L) {
-			mspt = 1L; Tick.rate = 1000.0f;
+			mspt = 1L; TickRate.rate = 1000.0f;
 		}
-		Tick.mspt = (float) mspt;
-		return Tick.rate;
+		TickRate.mspt = (float) mspt;
+		return TickRate.rate;
 	}
 
 	public static float resetRate() {

@@ -3,7 +3,7 @@ package io.yooksi.timelib.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 
-import io.yooksi.timelib.Tick;
+import io.yooksi.timelib.TickRate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.util.text.StringTextComponent;
