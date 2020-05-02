@@ -2,12 +2,11 @@ package io.yooksi.timelib;
 
 public class TickRate {
 
-	public static final float DEFAULT_RATE = 20.0f;
 
-	private static float rate = DEFAULT_RATE;
+	private static float rate = DEFAULT;
 	private static float mspt = (float)(1000.0 / rate);
 
-	public static float changeRate(float rate) {
+	public static float set(float rate) {
 
 		TickRate.rate = rate;
 		long mspt = (long) (1000.0 / TickRate.rate);
@@ -18,11 +17,11 @@ public class TickRate {
 		return TickRate.rate;
 	}
 
-	public static float resetRate() {
-		return changeRate(DEFAULT_RATE);
+	public static float reset() {
+		return set(DEFAULT);
 	}
 
-	public static float getRate() {
+	public static float get() {
 		return rate;
 	}
 
