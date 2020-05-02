@@ -8,7 +8,6 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:3.28.1"
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -16,9 +15,6 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-apply plugin: "com.diffplug.gradle.spotless"
-// Personal Spotless formatting rules
-//apply from: "https://git.io/JfekU"
 version = "${minecraftVersion}-${modVersion}"
 group = "io.${groupName}.${modId}"
 archivesBaseName = project.modId
