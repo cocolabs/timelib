@@ -17,8 +17,8 @@ public class TickRateCommand {
 
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 
-		dispatcher.register(Commands.literal("tickrate").then(Commands.literal(
-				"set").then(Commands.argument("value", FloatArgumentType.floatArg(0.1f, 20.0f))
+		dispatcher.register(Commands.literal("tickrate").then(Commands.literal("set")
+				.then(Commands.argument("value", FloatArgumentType.floatArg(0.1f, TickRate.MAXIMUM))
 				.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
 				.then(Commands.literal("slow").executes((c) -> setTickRate(c, TickRate.SLOW)))
 				.then(Commands.literal("normal").executes((c) -> setTickRate(c, TickRate.DEFAULT)))
