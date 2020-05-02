@@ -3,7 +3,7 @@ package io.yooksi.timelib;
 public class TickRate {
 
 	// Hardcoded limit so users don't go crazy with values
-	public static final float MAXIMUM = 20.0f;
+	public static final float MAXIMUM = 500.0f;
 
 	public static final float SLOW = 10.0f;
 	public static final float DEFAULT = 20.0f;
