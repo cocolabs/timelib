@@ -7,7 +7,6 @@ import com.mojang.brigadier.context.CommandContext;
 import io.yooksi.timelib.TickRate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.util.text.StringTextComponent;
 
 public class TickRateCommand {
 
@@ -18,38 +17,40 @@ public class TickRateCommand {
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 
 		dispatcher.register(Commands.literal("tickrate").then(Commands.literal("set")
-				.then(Commands.argument("value", FloatArgumentType.floatArg(0.1f, TickRate.MAXIMUM))
-				.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
+				.then(Commands.argument("value",
+						FloatArgumentType.floatArg(0.1f, TickRate.MAXIMUM))
+						.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
 				.then(Commands.literal("slow").executes((c) -> setTickRate(c, TickRate.SLOW)))
 				.then(Commands.literal("normal").executes((c) -> setTickRate(c, TickRate.DEFAULT)))
-				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickRate.FAST)))
-				.then(Commands.literal("reset").executes((c) -> setTickRate(c, TickRate.DEFAULT)))));
+				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickRate.FAST))))
+				.then(Commands.literal("reset").executes(TickRateCommand::setTickRate)));
 	}
-	/** Change tick rate to new value */
+
+	/**
+	 * Change tick rate to new value
+	 */
 	private static int setTickRate(CommandContext<CommandSource> context, float newRate) {
 
 		CommandSource source = context.getSource();
 		final float currentRate = TickRate.get();
 
 		if (newRate != currentRate) {
-			sendFeedback(source, String.format(FEEDBACK_CHANGED, currentRate, newRate));
+			CmdHelper.sendFeedback(source, String.format(FEEDBACK_CHANGED, currentRate, newRate));
 			return (int) TickRate.set(newRate);
 		}
 		else {
-			sendFeedback(source, String.format(FEEDBACK_NOT_CHANGED, currentRate));
+			CmdHelper.sendFeedback(source, String.format(FEEDBACK_NOT_CHANGED, currentRate));
 			return (int) currentRate;
 		}
 	}
-	/** Reset tick rate to a default value */
+
+	/**
+	 * Reset tick rate to default value
+	 */
 	private static int setTickRate(CommandContext<CommandSource> context) {
 
 		final float defaultRate = TickRate.reset();
-		sendFeedback(context.getSource(), String.format(FEEDBACK_RESET, defaultRate));
+		CmdHelper.sendFeedback(context.getSource(), String.format(FEEDBACK_RESET, defaultRate));
 		return (int) defaultRate;
-
-	}
-	/** Send chat message to player */
-	private static void sendFeedback(CommandSource source, String message) {
-		source.sendFeedback(new StringTextComponent(message), true);
 	}
 }

@@ -1,5 +1,6 @@
 package io.yooksi.timelib.mixin;
 
+import io.yooksi.timelib.command.TimeCycleCommand;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,6 +22,8 @@ public class CommandsMixin {
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onRegister(boolean boolean_1, CallbackInfo ci) {
+
 		TickRateCommand.register(dispatcher);
+		TimeCycleCommand.register(dispatcher);
 	}
 }
