@@ -22,4 +22,4 @@ credits="Unregkiller, gnembon, MDC and MMD communities"
 authors="yooksi"
 # A URL to query for updates for this mod. See the JSON update specification <here>
 # The description text for the mod (multi line!)
-description='''Minecraft mod that slows down game tick rate on command.'''
+description='''Minecraft mod library that holds the secrets of time.'''
