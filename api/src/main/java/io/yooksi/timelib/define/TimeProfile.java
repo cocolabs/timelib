@@ -1,4 +1,4 @@
-package io.yooksi.timelib;
+package io.yooksi.timelib.define;
 
 public enum TimeProfile {
 
