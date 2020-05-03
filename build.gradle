@@ -23,6 +23,24 @@ archivesBaseName = project.modId
 compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility
 
+sourceSets {
+    common {
+        java { srcDir 'src/common/java'}
+    }
+    api {
+        java {
+            compileClasspath += main.output + common.output
+            runtimeClasspath += main.output + common.output
+        }
+    }
+    main {
+        java {
+            compileClasspath += common.output
+            runtimeClasspath += common.output
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://repo.spongepowered.org/maven' }
