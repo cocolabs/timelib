@@ -1,0 +1,21 @@
+plugins {
+    id 'java-library'
+}
+
+group rootProject.group
+version rootProject.version
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = "${rootProject.name}-api"
+        }
+    }
+}
