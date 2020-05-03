@@ -1,5 +1,7 @@
 package io.yooksi.timelib;
 
+import io.yooksi.timelib.define.TimeProfile;
+
 public class TimeCycle {
 
 	/**
