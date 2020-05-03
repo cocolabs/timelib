@@ -14,6 +14,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'java-library'
 
 version = "${minecraftVersion}-${modVersion}"
 group = "io.${groupName}.${modId}"
@@ -70,6 +71,9 @@ minecraft {
 }
 
 dependencies {
+    // Project API
+    api project("${rootProject.name}-api")
+
     minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
 }
