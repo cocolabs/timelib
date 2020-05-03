@@ -1,7 +1,7 @@
 package io.yooksi.timelib.mixin;
 
 import io.yooksi.timelib.TimeCycle;
-import io.yooksi.timelib.TimeProfile;
+import io.yooksi.timelib.define.TimeProfile;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
