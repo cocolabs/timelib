@@ -7,6 +7,8 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+
+        // https://github.com/SpongePowered/MixinGradle
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -80,6 +82,7 @@ dependencies {
     // Project API
     api project("${rootProject.name}-api")
 
+    // https://github.com/SpongePowered/Mixin
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
 }
 
