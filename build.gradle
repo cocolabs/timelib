@@ -88,6 +88,8 @@ dependencies {
 
 // Get properties into the manifest for reading by the runtime..
 jar {
+    // Include API main sourceSet in jar
+    from files(project("${rootProject.name}-api").sourceSets.main.output)
     manifest {
         attributes([
                 "Specification-Title": project.modId,
