@@ -3,7 +3,7 @@ package io.yooksi.timelib.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.LongArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import TimeCycle;
+import io.yooksi.timelib.TimeCycle;
 import io.yooksi.timelib.define.TimeProfile;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;

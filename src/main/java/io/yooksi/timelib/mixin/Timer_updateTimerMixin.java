@@ -1,10 +1,9 @@
 package io.yooksi.timelib.mixin;
 
+import io.yooksi.timelib.TickRate;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-
-import TickRate;
 import net.minecraft.util.Timer;
 
 @SuppressWarnings("unused")

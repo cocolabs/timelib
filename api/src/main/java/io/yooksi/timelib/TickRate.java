@@ -1,5 +1,7 @@
 package io.yooksi.timelib;
 
+import io.yooksi.timelib.define.TickProfile;
+
 public class TickRate {
 
 	// Hardcoded limit so users don't go crazy with values

@@ -4,8 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 
 import com.mojang.brigadier.context.CommandContext;
+import io.yooksi.timelib.TickRate;
 import io.yooksi.timelib.define.TickProfile;
-import TickRate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 
