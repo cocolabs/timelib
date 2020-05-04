@@ -1,0 +1,19 @@
+
+group rootProject.group
+version rootProject.version
+
+repositories {
+    mavenCentral()
+}
+
+minecraft {
+    mappings channel: 'snapshot', version: "${mappingBuild}-${mappingMCVersion}"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = "${rootProject.name}-api"
+        }
+    }
+}

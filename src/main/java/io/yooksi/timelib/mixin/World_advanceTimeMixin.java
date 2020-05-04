@@ -1,6 +1,7 @@
 package io.yooksi.timelib.mixin;
 
 import io.yooksi.timelib.TimeCycle;
+import io.yooksi.timelib.define.TimeProfile;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
@@ -33,7 +34,7 @@ public abstract class World_advanceTimeMixin extends CapabilityProvider<World> {
 			long currentGameTime = worldInfo.getGameTime();
 			if (TimeCycle.lastGameTime + Math.abs(cycleSpeed) < currentGameTime)
 			{
-				this.setDayTime(this.worldInfo.getDayTime() + TimeCycle.DEFAULT_SPEED);
+				this.setDayTime(this.worldInfo.getDayTime() + TimeProfile.DEFAULT_SPEED.value);
 				TimeCycle.lastGameTime = worldInfo.getGameTime();
 			}
 		}

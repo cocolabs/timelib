@@ -2,6 +2,7 @@ package io.yooksi.timelib.mixin;
 
 import java.util.function.BooleanSupplier;
 
+import io.yooksi.timelib.TickRate;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,8 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import io.yooksi.timelib.TickRate;
 import net.minecraft.profiler.DebugProfiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Util;

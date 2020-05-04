@@ -7,13 +7,22 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+
+        // https://github.com/SpongePowered/MixinGradle
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
-apply plugin: 'net.minecraftforge.gradle'
+allprojects {
+    apply plugin: 'net.minecraftforge.gradle'
+    apply plugin: 'eclipse'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java-library'
+
+    dependencies {
+        minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+    }
+}
 apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 
 version = "${minecraftVersion}-${modVersion}"
 group = "io.${groupName}.${modId}"
@@ -70,12 +79,17 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+    // Project API
+    api project("${rootProject.name}-api")
+
+    // https://github.com/SpongePowered/Mixin
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
 }
 
 // Get properties into the manifest for reading by the runtime..
 jar {
+    // Include API main sourceSet in jar
+    from files(project("${rootProject.name}-api").sourceSets.main.output)
     manifest {
         attributes([
                 "Specification-Title": project.modId,

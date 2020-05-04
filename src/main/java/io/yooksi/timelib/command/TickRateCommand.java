@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.FloatArgumentType;
 
 import com.mojang.brigadier.context.CommandContext;
 import io.yooksi.timelib.TickRate;
+import io.yooksi.timelib.define.TickProfile;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 
@@ -20,9 +21,9 @@ public class TickRateCommand {
 				.then(Commands.argument("value",
 						FloatArgumentType.floatArg(0.1f, TickRate.MAXIMUM))
 						.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
-				.then(Commands.literal("slow").executes((c) -> setTickRate(c, TickRate.SLOW)))
-				.then(Commands.literal("normal").executes((c) -> setTickRate(c, TickRate.DEFAULT)))
-				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickRate.FAST))))
+				.then(Commands.literal("slow").executes((c) -> setTickRate(c, TickProfile.SLOW.rate)))
+				.then(Commands.literal("normal").executes((c) -> setTickRate(c, TickProfile.DEFAULT.rate)))
+				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickProfile.FAST.rate))))
 				.then(Commands.literal("reset").executes(TickRateCommand::setTickRate)));
 	}
 

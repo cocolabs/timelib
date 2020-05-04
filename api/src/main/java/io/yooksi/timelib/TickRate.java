@@ -1,15 +1,13 @@
 package io.yooksi.timelib;
 
+import io.yooksi.timelib.define.TickProfile;
+
 public class TickRate {
 
 	// Hardcoded limit so users don't go crazy with values
 	public static final float MAXIMUM = 500.0f;
 
-	public static final float SLOW = 10.0f;
-	public static final float DEFAULT = 20.0f;
-	public static final float FAST = 30.0f;
-
-	private static float rate = DEFAULT;
+	private static float rate = TickProfile.DEFAULT.rate;
 	private static float mspt = (float)(1000.0 / rate);
 
 	public static float set(float rate) {
@@ -24,7 +22,7 @@ public class TickRate {
 	}
 
 	public static float reset() {
-		return set(DEFAULT);
+		return set(TickProfile.DEFAULT.rate);
 	}
 
 	public static float get() {
