@@ -1,4 +1,4 @@
 rootProject.name = "TimeLib"
 
-include ":api"
+include "api"
 project(':api').name = "${rootProject.name}-api"

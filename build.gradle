@@ -33,9 +33,7 @@ compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility
 
 repositories {
-    mavenCentral()
     maven { url 'https://repo.spongepowered.org/maven' }
-    maven { url 'https://jitpack.io' }
 }
 
 mixin {
@@ -86,7 +84,7 @@ dependencies {
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
 }
 
-// Get properties into the manifest for reading by the runtime..
+// Get properties into the manifest for reading by the runtime
 jar {
     // Include API main sourceSet in jar
     from files(project("${rootProject.name}-api").sourceSets.main.output)
