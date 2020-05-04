@@ -25,7 +25,7 @@ allprojects {
 apply plugin: 'org.spongepowered.mixin'
 
 version = "${minecraftVersion}-${modVersion}"
-group = "io.${groupName}.${modId}"
+group = "io.${groupName}"
 archivesBaseName = project.modId
 
 // Need this here so eclipse task generates correctly.
