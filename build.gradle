@@ -131,10 +131,14 @@ build.dependsOn sourcesJar
 artifacts {
     archives sourcesJar, devJar
 }
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
+        }
+        mavenJava(MavenPublication) {
+            artifact apiJar
         }
     }
     repositories {
@@ -143,7 +147,6 @@ publishing {
         }
     }
 }
-
 
 // Process resources on build and make sure that variables are
 // correctly inserted into mods.toml when the mod is built or run
