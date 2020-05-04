@@ -84,22 +84,22 @@ dependencies {
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
 }
 
+final def jarAttributes = [
+        "Specification-Title": project.modId,
+        "Specification-Vendor": "${groupName}",
+        "Specification-Version": "1", // We are version 1 of ourselves
+        "Implementation-Title": project.name,
+        "Implementation-Version": "${version}",
+        "Implementation-Vendor": "${groupName}",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+        "MixinConfigs": "${modId}.mixins.json"
+]
+
 // Get properties into the manifest for reading by the runtime
 jar {
     // Include API main sourceSet in jar
     from files(project("${rootProject.name}-api").sourceSets.main.output)
-    manifest {
-        attributes([
-                "Specification-Title": project.modId,
-                "Specification-Vendor": "${groupName}",
-                "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor": "${groupName}",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs": "${modId}.mixins.json"
-        ])
-    }
+    manifest { attributes(jarAttributes) }
 }
 
 // Example configuration to allow publishing using the maven-publish task
