@@ -101,11 +101,36 @@ jar {
     from files(project("${rootProject.name}-api").sourceSets.main.output)
     manifest { attributes(jarAttributes) }
 }
-
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
 jar.finalizedBy('reobfJar')
 
+task apiJar(type: Jar, dependsOn: classes) {
+    classifier = 'api'
+    from files(project("${rootProject.name}-api").sourceSets.main.output)
+}
+apiJar.finalizedBy('reobfJar')
+build.dependsOn apiJar
+
+task devJar(type: Jar, dependsOn: classes) {
+    classifier = 'dev'
+    from sourceSets.main.output
+    // Include API main sourceSet in jar
+    from files(project("${rootProject.name}-api").sourceSets.main.output)
+    exclude("mixins.${modId}.refmap.json")
+    manifest { attributes(jarAttributes) }
+}
+
+// Generate sources when building mod
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+build.dependsOn sourcesJar
+
+artifacts {
+    archives sourcesJar, devJar
+}
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -119,16 +144,6 @@ publishing {
     }
 }
 
-// Generate sources when building mod
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-build.dependsOn sourcesJar
-
-artifacts {
-    archives sourcesJar
-}
 
 // Process resources on build and make sure that variables are
 // correctly inserted into mods.toml when the mod is built or run
