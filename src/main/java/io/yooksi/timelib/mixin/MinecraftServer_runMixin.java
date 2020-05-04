@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.yooksi.timelib.TickRate;
+import TickRate;
 import net.minecraft.profiler.DebugProfiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Util;

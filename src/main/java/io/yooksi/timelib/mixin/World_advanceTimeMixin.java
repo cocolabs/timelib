@@ -1,6 +1,6 @@
 package io.yooksi.timelib.mixin;
 
-import io.yooksi.timelib.TimeCycle;
+import TimeCycle;
 import io.yooksi.timelib.define.TimeProfile;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
