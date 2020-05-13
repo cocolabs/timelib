@@ -111,7 +111,6 @@ task apiJar(type: Jar, dependsOn: classes) {
     from files(project("${rootProject.name}-api").sourceSets.main.output)
 }
 apiJar.finalizedBy('reobfJar')
-build.dependsOn apiJar
 
 task devJar(type: Jar, dependsOn: classes) {
     classifier = 'dev'
