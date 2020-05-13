@@ -9,11 +9,3 @@ repositories {
 minecraft {
     mappings channel: 'snapshot', version: "${mappingBuild}-${mappingMCVersion}"
 }
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifactId = "${rootProject.name}-api"
-        }
-    }
-}
