@@ -166,6 +166,14 @@ publishing {
     }
 }
 
+// this step is necessary when installing both jars in the local maven repository
+install {
+    repositories.mavenInstaller {
+        addFilter('api') { artifact, file -> artifact.name.endsWith('api') }
+        addFilter('dev') { artifact, file -> artifact.name.endsWith('dev') }
+    }
+}
+
 // Process resources on build and make sure that variables are
 // correctly inserted into mods.toml when the mod is built or run
 processResources {
