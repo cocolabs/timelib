@@ -12,17 +12,12 @@ buildscript {
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
-// This part is common to api and main
-allprojects {
-    apply plugin: 'net.minecraftforge.gradle'
-    apply plugin: 'eclipse'
-    apply plugin: 'maven-publish'
-    apply plugin: 'java-library'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'java-library'
 
-    dependencies {
-        minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
-    }
-}
 apply plugin: 'org.spongepowered.mixin'
 
 version = "${minecraftVersion}-${modVersion}"
@@ -35,6 +30,19 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility
 
 repositories {
     maven { url 'https://repo.spongepowered.org/maven' }
+}
+
+sourceSets {
+    api {
+        java { srcDir('src/api/java') }
+    }
+    impl {
+        java {
+            srcDir('src/main/java')
+            compileClasspath += api.output
+            runtimeClasspath += api.output
+        }
+    }
 }
 
 // Define which sourceSets will be covered by mixin refmap
@@ -77,11 +85,16 @@ minecraft {
 }
 
 dependencies {
-    // Project API
-    api project("${rootProject.name}-api")
+    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+    minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
 
     // https://github.com/SpongePowered/Mixin
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
+
+    runtime configurations.apiRuntime
+    runtime configurations.implRuntime
 }
 
 final def jarAttributes = [
@@ -95,10 +108,9 @@ final def jarAttributes = [
         "MixinConfigs": "${modId}.mixins.json"
 ]
 
-// Get properties into the manifest for reading by the runtime
 jar {
-    // Include API main sourceSet in jar
-    from files(project("${rootProject.name}-api").sourceSets.main.output)
+    from sourceSets.api.output
+    from sourceSets.main.output
     manifest { attributes(jarAttributes) }
 }
 // Example configuration to allow publishing using the maven-publish task
@@ -108,16 +120,15 @@ jar.finalizedBy('reobfJar')
 // API jar for library consumers
 task apiJar(type: Jar, dependsOn: classes) {
     classifier = 'api'
-    from files(project("${rootProject.name}-api").sourceSets.main.output)
+    from sourceSets.api.output
 }
 apiJar.finalizedBy('reobfJar')
 
 // Non-obfuscated jar for developers
 task devJar(type: Jar, dependsOn: classes) {
     classifier = 'dev'
+    from sourceSets.api.output
     from sourceSets.main.output
-    // Include API main sourceSet in jar
-    from files(project("${rootProject.name}-api").sourceSets.main.output)
     exclude("mixins.${modId}.refmap.json")
     manifest { attributes(jarAttributes) }
 }
