@@ -20,9 +20,6 @@ build
 eclipse
 run
 
-# package
-*.jar
-
 # log
 *.log
 
