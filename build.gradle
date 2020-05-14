@@ -117,7 +117,7 @@ jar.finalizedBy('reobfJar')
 
 // API jar for library consumers
 task apiJar(type: Jar, dependsOn: classes) {
-    baseName = 'TimeLib'
+    baseName = 'timelib'
     classifier = 'api'
     from sourceSets.api.output
 }
@@ -125,7 +125,7 @@ apiJar.finalizedBy('reobfJar')
 
 // Non-obfuscated jar for developers
 task devJar(type: Jar, dependsOn: classes) {
-    baseName = 'TimeLib'
+    baseName = 'timelib'
     classifier = 'dev'
     from sourceSets.api.output
     from sourceSets.main.output
@@ -167,12 +167,12 @@ publishing {
 }
 
 // this step is necessary when installing both jars in the local maven repository
-install {
-    repositories.mavenInstaller {
-        addFilter('api') { artifact, file -> artifact.name.endsWith('api') }
-        addFilter('dev') { artifact, file -> artifact.name.endsWith('dev') }
-    }
-}
+//install {
+//    repositories.mavenInstaller {
+//        addFilter('api') { artifact, file -> artifact.name.endsWith('api') }
+//        addFilter('dev') { artifact, file -> artifact.name.endsWith('dev') }
+//    }
+//}
 
 // Process resources on build and make sure that variables are
 // correctly inserted into mods.toml when the mod is built or run
