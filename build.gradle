@@ -130,7 +130,7 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 build.dependsOn sourcesJar
 
 artifacts {
-    archives sourcesJar, devJar
+    archives sourcesJar, devJar, apiJar
 }
 
 publishing {
