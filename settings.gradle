@@ -1,4 +1,1 @@
-rootProject.name = "timelib"
-
-include "api"
-project(':api').name = "${rootProject.name}-api"
+rootProject.name = "TimeLib"
