@@ -117,7 +117,7 @@ jar.finalizedBy('reobfJar')
 
 // API jar for library consumers
 task apiJar(type: Jar, dependsOn: classes) {
-    baseName = 'api'
+    baseName = 'TimeLib'
     classifier = 'api'
     from sourceSets.api.output
 }
@@ -125,7 +125,7 @@ apiJar.finalizedBy('reobfJar')
 
 // Non-obfuscated jar for developers
 task devJar(type: Jar, dependsOn: classes) {
-    baseName = 'dev'
+    baseName = 'TimeLib'
     classifier = 'dev'
     from sourceSets.api.output
     from sourceSets.main.output
