@@ -36,9 +36,8 @@ sourceSets {
     api {
         java { srcDir('src/api/java') }
     }
-    impl {
+    main {
         java {
-            srcDir('src/main/java')
             compileClasspath += api.output
             runtimeClasspath += api.output
         }
@@ -93,8 +92,7 @@ dependencies {
     // https://github.com/SpongePowered/Mixin
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
 
-    runtime configurations.apiRuntime
-    runtime configurations.implRuntime
+    implementation sourceSets.api.output
 }
 
 final def jarAttributes = [
