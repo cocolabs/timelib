@@ -1,4 +1,4 @@
-# Tickrate Changer Mod
+# TimeLib
 
 This is a Forge mod for Mincraft version 1.15 that lets you slow down time making everything in your environment move slower. This includes all game animations (including the player), but does not affect the camera.
 
