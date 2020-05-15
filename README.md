@@ -1,4 +1,5 @@
 # TimeLib
+[![JitPack](https://jitpack.io/v/yooksi/TimeLib.svg)](https://jitpack.io/#yooksi/TimeLib) [![License](https://img.shields.io/github/license/yooksi/TimeLib)](https://www.gnu.org/licenses/) [![Discord](https://img.shields.io/discord/710517912485494794)](https://discord.gg/dKY9xW)
 
 TimeLib is a Minecraft Forge modding library that lets you control game time.
 
