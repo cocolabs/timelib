@@ -62,15 +62,15 @@ dependencies {
 
 The example above would attempt to resolve the following artifacts from Jitpack:
 
-- API library module for other mods to interact with. We need this jar when we are writing and compiling  our mod so we use the `compileOnly` strategy. The API is also needed during runtime but in our case it is already included in the dev jar that is included on runtime classpath.
+- API library module for other mods to interact with. We need this jar when we are writing and compiling  our mod so we use the `compileOnly` strategy. It is also needed during runtime but it's already included in the dev jar which is on runtime classpath.
 
-- *Deobfuscated* version of our mod (indicated by the `dev` classifier). The dependency would be exposed only during runtime because we added it to `runtimeOnly` configuration.
+- *Deobfuscated* version of our mod built for use by developers (indicated by the `dev` classifier). The dependency will be exposed only during runtime because we added it to `runtimeOnly` configuration.
 
-Another way to get the library would be to use `fg.deobf` right after declaring the configuration type to indicate that the production jar should be deobfuscated after being resolved. This is not necessary and just adds extra work during build phase, this is why the project provides the `dev` jar. Besides, this way you need to manually attach source files since the deobfuscated jar ends up in Forge cache folder.  
+Another way to get the library would be to use `fg.deobf` right after declaring the configuration type to indicate that the production jar should be deobfuscated after being resolved. This is not necessary and just adds extra work during build phase, this is why the project provides the `dev` jar. Besides, this way you need to manually attach source files since the created jar ends up in Forge cache folder.  
 
 ### Github
 
-This is the **recommended** way to obtain the production jar for library users. 
+This is the **recommended** way to obtain the production jar for library users.  
 *Developers should only use this way if JitPack is not working or they feel adventurous.*
 
 Check the [releases](https://github.com/yooksi/TimeLib/releases) section in project repository page to get the latest release. 
