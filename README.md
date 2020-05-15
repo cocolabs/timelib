@@ -1,22 +1,21 @@
 # TimeLib
 
-This is a Forge mod for Mincraft version 1.15 that lets you slow down time making everything in your environment move slower. This includes all game animations (including the player), but does not affect the camera.
+TimeLib is a Minecraft Forge modding library that lets you control game time.
 
-## Where do I download it?
+## Motivation
 
-- Check the [releases](https://github.com/yooksi/trcm/releases) section in project repository page to get the latest release.
+Time is a very powerful game aspect that is often neglected. Changing how time behaves has the potential to dramatically alter game experience. For example, longer days and night could give players a greater sense of adventure by promoting immersion over fast-paced action, slow-motion effects applied in critical moments of battle could create a great feeling of excitement. 
 
-## How do I install it?
+Through the use of Mixin and a simple to use API to configure various time related settings TimeLib gives developers the tools they need to create game changing mods.
 
-- Make sure you have the appropriate Forge [version](https://github.com/yooksi/trcm/blob/master/gradle.properties#L9)-[build](https://github.com/yooksi/trcm/blob/master/gradle.properties#L10) installed.
 - Place the mod `jar` in game `mods` folder as per standard mod installation.
-- Download the appropriate MixinBootstrap [version](https://github.com/yooksi/trcm/blob/master/gradle.properties#L13) from the [releases](https://github.com/LXGaming/MixinBootstrap/releases) section of the project repository page and place it in game `mods` folder alongside the mod `jar` as instructed by the previous step.
+- Download a backward compatible [version](https://github.com/yooksi/trcm/blob/master/gradle.properties#L15) of MixinBootstrap from the [releases](https://github.com/LXGaming/MixinBootstrap/releases) section of the project repository page and place it in game `mods` folder alongside the mod `jar` as previously instructed.
 
 ### Why do I need an external mod?
 
-Due to the nature of how Forge works Mixin needs a bit of help to work in production environment with Forge. MixinBootstrap does just that, it's only function is to enable Mixin to work with Forge, that's it. If you are interested in learning more about Mixin environment read [Introduction to Mixins: The Mixin Environment](https://github.com/SpongePowered/Mixin/wiki/Introduction-to-Mixins---The-Mixin-Environment).
+Forge and [Mixin](https://github.com/SpongePowered/Mixin) are not compatible straight out of the box so they need a bit of help to work in production environment. MixinBootstrap does just that, it's only function is to enable Mixin to work with Forge, that's it. If you are interested in learning more about Mixin environment read [Introduction to Mixins: The Mixin Environment](https://github.com/SpongePowered/Mixin/wiki/Introduction-to-Mixins---The-Mixin-Environment).
 
-## How do I use it?
+## How to use it?
 
 Tick rate is changed through the use of the following game commands:
 
@@ -25,7 +24,7 @@ Tick rate is changed through the use of the following game commands:
 
 ## Technical details
 
-The process used to accomplish this is complex and involves bytecode manipulation using [Mixin](https://github.com/SpongePowered/Mixin). The technical side of things can be difficult to understand if you are not familiar with [ASM](https://asm.ow2.io/), however this is the simple version of what happens inside the mod that allows us to slow down time:
+The following section is a brief technical explanation of how TimeLib is able to slow down game time. It is written in hopes that some developers might find it useful when learning to work with Mixin. Note that the process used to accomplish this involves bytecode manipulation and as such is not recommended as a starting point for beginners to learn about Java or Forge.
 
 - During runtime Mixin will redirect method flow at a particular point in `MinecraftServer.run()` method and inject a callback to itself. The point of injection is the `while` loop that handles the server time calculation and determines when each tick should happen.
 - We then do a series of calculations and determine how much milliseconds passed this tick based on the `mspt` (milliseconds per tick) rate calculated from tick rate set by the player via game command.
