@@ -8,6 +8,72 @@ Time is a very powerful game aspect that is often neglected. Changing how time b
 
 Through the use of Mixin and a simple to use API to configure various time related settings TimeLib gives developers the tools they need to create game changing mods.
 
+## Features
+
+- Allows you to set game tick rate resulting in slower or faster movements and animations
+ including all mobs and players, but does not affect the camera.
+
+- Allows you to set time cycle speed and control how fast days and nights last.
+
+## Where to get it?
+
+Each repository production and maven artifacts release contains three `jar` types that you can download:
+
+- `-dev.jar` is a non-obfuscated version of the jar used by developers.
+- `-sources.jar` contains project source files used by developers.
+- `-.jar` is an obfuscated production-ready jar mostly used by players. 
+
+**Developers** will want either the dev or production jar (optionally) accompanied by sources jar to make reading and understanding the library code easier when working with their mods.
+
+**Players** will want only the production jar found in the repository release section on [Github](#github) which they should treat as a standard game mod (see [installation](#how-to-install-it) section for more information).
+
+### Maven
+
+TimeLib is hosted on [JitPack](https://jitpack.io/#yooksi/TimeLib) so head over there and get the latest release.
+
+Here is the **recommended** way of getting the library in your project:
+
+```groovy
+// Definines where Gradle should look for declared dependencies
+// Declare this AFTER the buildscript block (first script block)
+// and BEFORE MinecraftForge Gradle plugin configuration
+repositories {
+	...
+	maven { url 'https://jitpack.io' }
+}
+
+minecraft {
+	...
+}
+
+dependencies {
+    // Specify the version of Minecraft to use
+    minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+    
+    // We need to compile with the api but don't need it during runtime
+    compileOnly "com.github.yooksi:TimeLib:${timeLibVersion}:api"
+     // We need the main jar during runtime but not when compiling
+    runtimeOnly "com.github.yooksi:TimeLib:${timeLibVersion}:dev"
+}
+```
+
+*Note that the `timeLibVersion` property in this example was defined in `gradle.properties` to make accessing and reading version numbers easier. You should update the property (or just replace the variable) to a fully qualified version of the library you want to use.*
+
+The example above would attempt to resolve the following artifacts from Jitpack:
+
+- API library module for other mods to interact with. We need this jar when we are writing and compiling  our mod so we use the `compileOnly` strategy. The API is also needed during runtime but in our case it is already included in the dev jar that is included on runtime classpath.
+
+- *Deobfuscated* version of our mod (indicated by the `dev` classifier). The dependency would be exposed only during runtime because we added it to `runtimeOnly` configuration.
+
+Another way to get the library would be to use `fg.deobf` right after declaring the configuration type to indicate that the production jar should be deobfuscated after being resolved. This is not necessary and just adds extra work during build phase, this is why the project provides the `dev` jar. Besides, this way you need to manually attach source files since the deobfuscated jar ends up in Forge cache folder.  
+
+### Github
+
+Check the [releases](https://github.com/yooksi/TimeLib/releases) section in project repository page to get the latest release. This is the recommended way to obtain the production jar for players, developers should use this way only if JitPack is not working and they are not afraid to do things manually.
+
+## How to install it?
+
+- Make sure you have a backward compatible Forge [version](https://github.com/yooksi/trcm/blob/master/gradle.properties#L11) installed.
 - Place the mod `jar` in game `mods` folder as per standard mod installation.
 - Download a backward compatible [version](https://github.com/yooksi/trcm/blob/master/gradle.properties#L15) of MixinBootstrap from the [releases](https://github.com/LXGaming/MixinBootstrap/releases) section of the project repository page and place it in game `mods` folder alongside the mod `jar` as previously instructed.
 
