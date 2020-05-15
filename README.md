@@ -87,10 +87,17 @@ Forge and [Mixin](https://github.com/SpongePowered/Mixin) are not compatible str
 
 ## How to use it?
 
-Tick rate is changed through the use of the following game commands:
+### Commands
 
-- `\t <rate>` - change tick rate to a desired value (min 0.1, max 20).
-- `\t` - reset tick rate to game default value (20).
+- `\tickrate set <rate>` - change tick rate to a desired value (min 0.1, max 500).
+  - `slow` - 50% slower tick rate (10).
+  - `normal` - game default value (20).
+  - `fast` - 50% faster tick rate (30).
+- `\tickrate reset` - resets tick rate to game default value (20).
+- `\timecycle speed <value>` - change the speed for day/night time cycle (min -72, max 72)
+  - `slow` - skip 1 tick when updating day time (x2 longer cycle).
+  - `normal` - do not skip ticks when updating day time (game default).
+  - `fast` - add 1 additional tick when updating day time (x2 faster cycle). 
 
 ## Technical details
 
