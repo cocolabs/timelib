@@ -70,7 +70,10 @@ Another way to get the library would be to use `fg.deobf` right after declaring 
 
 ### Github
 
-Check the [releases](https://github.com/yooksi/TimeLib/releases) section in project repository page to get the latest release. This is the recommended way to obtain the production jar for players, developers should use this way only if JitPack is not working and they are not afraid to do things manually.
+This is the **recommended** way to obtain the production jar for library users. 
+*Developers should only use this way if JitPack is not working or they feel adventurous.*
+
+Check the [releases](https://github.com/yooksi/TimeLib/releases) section in project repository page to get the latest release. 
 
 ## How to install it?
 
