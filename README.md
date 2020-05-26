@@ -1,7 +1,7 @@
 # TimeLib
 [![JitPack](https://jitpack.io/v/yooksi/TimeLib.svg)](https://jitpack.io/#yooksi/TimeLib) [![License](https://img.shields.io/github/license/yooksi/TimeLib)](https://www.gnu.org/licenses/) [![Discord](https://img.shields.io/discord/710517912485494794)](https://discord.gg/dKY9xW)
 
-TimeLib is a Minecraft Forge modding library that lets you control game time.
+TimeLib is a Minecraft modding library for Forge that lets you control game time.
 
 ## Motivation
 
@@ -66,7 +66,9 @@ The example above would attempt to resolve the following artifacts from Jitpack:
 
 - *Deobfuscated* version of our mod built for use by developers (indicated by the `dev` classifier). The dependency will be exposed only during runtime because we added it to `runtimeOnly` configuration.
 
-Another way to get the library would be to use `fg.deobf` right after declaring the configuration type to indicate that the production jar should be deobfuscated after being resolved. This is not necessary and just adds extra work during build phase, this is why the project provides the `dev` jar. Besides, this way you need to manually attach source files since the created jar ends up in Forge cache folder.  
+Another way to get the library would be to use `fg.deobf` right after declaring the configuration type to indicate that the production jar should be deobfuscated after being resolved. 
+
+This is not necessary and just adds extra work during build phase and makes deal with manually attaching source files. This is why the project provides a compiled `dev` jar.
 
 ### Github
 
@@ -83,7 +85,9 @@ Check the [releases](https://github.com/yooksi/TimeLib/releases) section in proj
 
 ### Why do I need an external mod?
 
-Forge and [Mixin](https://github.com/SpongePowered/Mixin) are not compatible straight out of the box so they need a bit of help to work in production environment. MixinBootstrap does just that, it's only function is to enable Mixin to work with Forge, that's it. If you are interested in learning more about Mixin environment read [Introduction to Mixins: The Mixin Environment](https://github.com/SpongePowered/Mixin/wiki/Introduction-to-Mixins---The-Mixin-Environment).
+Forge and [Mixin](https://github.com/SpongePowered/Mixin) are not compatible straight out of the box so they need a bit of help to work in production environment. MixinBootstrap does just that, it's only function is to enable Mixin to work with Forge, that's it. 
+
+If you are interested in learning more about Mixin environment read [Introduction to Mixins: The Mixin Environment](https://github.com/SpongePowered/Mixin/wiki/Introduction-to-Mixins---The-Mixin-Environment).
 
 ## How to use it?
 
