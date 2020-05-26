@@ -66,9 +66,7 @@ The example above would attempt to resolve the following artifacts from Jitpack:
 
 - *Deobfuscated* version of our mod built for use by developers (indicated by the `dev` classifier). The dependency will be exposed only during runtime because we added it to `runtimeOnly` configuration.
 
-Another way to get the library would be to use `fg.deobf` right after declaring the configuration type to indicate that the production jar should be deobfuscated after being resolved. 
-
-This is not necessary and just adds extra work during build phase and makes deal with manually attaching source files. This is why the project provides a compiled `dev` jar.
+Another way to get the library would be to use `fg.deobf` right after declaring the configuration type to indicate that the production jar should be *deobfuscated* after being resolved. This is not necessary and just adds extra work during build phase and makes deal with manually attaching source files. This is why the project provides a compiled `dev` jar.
 
 ### Github
 
