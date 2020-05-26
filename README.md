@@ -131,3 +131,10 @@ The steps above slow down server tick rate but unfortunately result in frame ski
 - [Unregkiller](https://github.com/Unregkiller) - for commissioning the creation of this mod.
 - [gnembon](https://github.com/gnembon) - for creating [Carpet](https://github.com/gnembon/fabric-carpet/blob/master/src/main/java/carpet/mixins/MinecraftServer_tickspeedMixin.java) on which this mod is based of.
 - [MDC](https://www.moddevcafe.com/), [MMD](https://discordapp.com/invite/EDbExcX)  and [Mixin](https://discord.gg/sponge) community- for helping resolve technical issues. 
+
+## License
+
+This library is licensed under [General Public License v3.0](https://www.gnu.org/licenses).
+
+Software that depends on, is built upon or derived from this library  is conditioned on making available complete source code of licensed  works and modifications, which include larger works using a licensed   work, under the same license. Copyright and license notices must be  preserved.
+
