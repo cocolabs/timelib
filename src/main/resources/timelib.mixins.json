@@ -2,10 +2,10 @@
   "required": true,
   "package": "io.yooksi.timelib.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "main.refmap.json",
+  "refmap": "mixins.timelib.refmap.json",
   "mixins": [
+    "World_advanceTimeMixin",
     "MinecraftServer_runMixin",
-    "MinecraftServer_tickMixin",
     "CommandsMixin"
   ],
   "client": [

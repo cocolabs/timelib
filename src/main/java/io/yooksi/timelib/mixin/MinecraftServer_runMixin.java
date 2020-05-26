@@ -1,7 +1,21 @@
+/*
+ *  Copyright (C) 2020 Matthew Cain
+ *
+ *  This file is part of TimeLib.
+ *
+ *  TimeLib is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with TimeLib. If not, see <https://www.gnu.org/licenses/>.
+ */
 package io.yooksi.timelib.mixin;
 
 import java.util.function.BooleanSupplier;
 
+import io.yooksi.timelib.TickRate;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,8 +23,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import io.yooksi.timelib.Tick;
 import net.minecraft.profiler.DebugProfiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Util;
@@ -59,7 +71,7 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 		while (this.serverRunning)
 		{
 			long msThisTick, long_1;
-			float tickMspt = Tick.getMspt();
+			float tickMspt = TickRate.getMspt();
 
 			// Tickrate changed. Ensure that we use the correct value.
 			if (Math.abs(msptAccum - tickMspt) > 1.0f) {
@@ -69,7 +81,7 @@ public abstract class MinecraftServer_runMixin extends RecursiveEventLoop<TickDe
 			msptAccum += tickMspt - msThisTick;
 			long_1 = Util.milliTime() - this.serverTime;
 
-			float float_1 = 1000L + 20 * Tick.getMspt();
+			float float_1 = 1000L + 20 * TickRate.getMspt();
 			float float_2 = 10000L + 100 * tickMspt;
 
 			//smoothed out delay to include mcpt component. With 50L gives defaults.

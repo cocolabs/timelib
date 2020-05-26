@@ -1,12 +1,26 @@
+/*
+ *  Copyright (C) 2020 Matthew Cain
+ *
+ *  This file is part of TimeLib.
+ *
+ *  TimeLib is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with TimeLib. If not, see <https://www.gnu.org/licenses/>.
+ */
 package io.yooksi.timelib.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 
-import io.yooksi.timelib.Tick;
+import com.mojang.brigadier.context.CommandContext;
+import io.yooksi.timelib.TickRate;
+import io.yooksi.timelib.define.TickProfile;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.util.text.StringTextComponent;
 
 public class TickRateCommand {
 
@@ -16,33 +30,41 @@ public class TickRateCommand {
 
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
 
-		dispatcher.register(Commands.literal("t").executes((c) -> setTickRate(c.getSource()))
-				.then(Commands.argument("rate", FloatArgumentType.floatArg(0.1f, 20.0f))
-						.executes((c) -> setTickRate(c.getSource(), c.getArgument("rate", Float.class)))));
+		dispatcher.register(Commands.literal("tickrate").then(Commands.literal("set")
+				.then(Commands.argument("value",
+						FloatArgumentType.floatArg(0.1f, TickRate.MAXIMUM))
+						.executes((c) -> setTickRate(c, c.getArgument("value", Float.class))))
+				.then(Commands.literal("slow").executes((c) -> setTickRate(c, TickProfile.SLOW.rate)))
+				.then(Commands.literal("normal").executes((c) -> setTickRate(c, TickProfile.DEFAULT.rate)))
+				.then(Commands.literal("fast").executes((c) -> setTickRate(c, TickProfile.FAST.rate))))
+				.then(Commands.literal("reset").executes(TickRateCommand::setTickRate)));
 	}
-	/** Change tick rate to new value */
-	private static int setTickRate(CommandSource source, float newRate) {
 
-		final float currentRate = Tick.getRate();
+	/**
+	 * Change tick rate to new value
+	 */
+	private static int setTickRate(CommandContext<CommandSource> context, float newRate) {
+
+		CommandSource source = context.getSource();
+		final float currentRate = TickRate.get();
+
 		if (newRate != currentRate) {
-			sendFeedback(source, String.format(FEEDBACK_CHANGED, currentRate, newRate));
-			return (int) Tick.changeRate(newRate);
+			CmdHelper.sendFeedback(source, String.format(FEEDBACK_CHANGED, currentRate, newRate));
+			return (int) TickRate.set(newRate);
 		}
 		else {
-			sendFeedback(source, String.format(FEEDBACK_NOT_CHANGED, currentRate));
+			CmdHelper.sendFeedback(source, String.format(FEEDBACK_NOT_CHANGED, currentRate));
 			return (int) currentRate;
 		}
 	}
-	/** Reset tick rate to a default value */
-	private static int setTickRate(CommandSource source) {
 
-		final float defaultRate = Tick.resetRate();
-		sendFeedback(source, String.format(FEEDBACK_RESET, defaultRate));
+	/**
+	 * Reset tick rate to default value
+	 */
+	private static int setTickRate(CommandContext<CommandSource> context) {
+
+		final float defaultRate = TickRate.reset();
+		CmdHelper.sendFeedback(context.getSource(), String.format(FEEDBACK_RESET, defaultRate));
 		return (int) defaultRate;
-
-	}
-	/** Send chat message to player */
-	private static void sendFeedback(CommandSource source, String message) {
-		source.sendFeedback(new StringTextComponent(message), true);
 	}
 }

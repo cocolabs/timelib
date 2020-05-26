@@ -7,16 +7,21 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+
+        // https://github.com/SpongePowered/MixinGradle
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'java-library'
+
+apply plugin: 'org.spongepowered.mixin'
 
 version = "${minecraftVersion}-${modVersion}"
-group = "io.${groupName}.${modId}"
+group = "io.${groupName}"
 archivesBaseName = project.modId
 
 // Need this here so eclipse task generates correctly.
@@ -24,24 +29,28 @@ compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility
 
 repositories {
-    mavenCentral()
     maven { url 'https://repo.spongepowered.org/maven' }
-    maven {
-        name "lxgaming"
-        url "https://dl.bintray.com/lxgaming/maven"
-    }
-    maven { url 'https://jitpack.io' }
 }
 
 sourceSets {
-    main { ext.refMap = "main.refmap.json" }
+    api {
+        java { srcDir('src/api/java') }
+    }
+    main {
+        java {
+            compileClasspath += api.output
+            runtimeClasspath += api.output
+        }
+    }
+}
+
+// Define which sourceSets will be covered by mixin refmap
+mixin {
+    add sourceSets.main, "mixins.${modId}.refmap.json"
 }
 
 minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
+    // The mappings can be changed at any time, use non-default mappings at your own risk.
     // Simply re-run your setup task after changing the mappings to update your workspace.
     mappings channel: 'snapshot', version: "${mappingBuild}-${mappingMCVersion}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
@@ -61,6 +70,7 @@ minecraft {
         }
         server {
             workingDirectory project.file('run')
+            arg "-mixin.config=" + archivesBaseName + ".mixins.json"
 
             // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -74,41 +84,53 @@ minecraft {
 }
 
 dependencies {
+    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+
+    // https://github.com/SpongePowered/Mixin
     compile "org.spongepowered:mixin:0.8.1-SNAPSHOT"
-    implementation "com.github.LXGaming:MixinBootstrap:v${mixinBootstrapVer}"
+
+    implementation sourceSets.api.output
 }
 
-// Get properties into the manifest for reading by the runtime..
+final def jarAttributes = [
+        "Specification-Title": project.modId,
+        "Specification-Vendor": "${groupName}",
+        "Specification-Version": "1", // We are version 1 of ourselves
+        "Implementation-Title": project.name,
+        "Implementation-Version": "${version}",
+        "Implementation-Vendor": "${groupName}",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+        "MixinConfigs": "${modId}.mixins.json"
+]
+
 jar {
-    manifest {
-        attributes([
-                "Specification-Title": project.modId,
-                "Specification-Vendor": "${groupName}",
-                "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor": "${groupName}",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        ])
-    }
+    from sourceSets.api.output
+    from sourceSets.main.output
+    manifest { attributes(jarAttributes) }
 }
-
 // Example configuration to allow publishing using the maven-publish task
 // This is the preferred method to reobfuscate your jar file
 jar.finalizedBy('reobfJar')
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
-        }
-    }
+// API jar for library consumers
+task apiJar(type: Jar, dependsOn: classes) {
+    baseName = project.modId
+    classifier = 'api'
+    from sourceSets.api.output
+}
+apiJar.finalizedBy('reobfJar')
+
+// Non-obfuscated jar for developers
+task devJar(type: Jar, dependsOn: classes) {
+    baseName = project.modId
+    classifier = 'dev'
+    from sourceSets.api.output
+    from sourceSets.main.output
+    exclude("mixins.${modId}.refmap.json")
+    manifest { attributes(jarAttributes) }
 }
 
 // Generate sources when building mod
@@ -119,7 +141,29 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 build.dependsOn sourcesJar
 
 artifacts {
-    archives sourcesJar
+    archives sourcesJar, devJar, apiJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+        mavenJava(MavenPublication) {
+            artifact apiJar
+        }
+        mavenJava(MavenPublication) {
+            artifact devJar
+        }
+        mavenJava(MavenPublication) {
+            artifact sourcesJar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
 }
 
 // Process resources on build and make sure that variables are
